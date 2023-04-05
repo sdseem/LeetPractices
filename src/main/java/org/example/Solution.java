@@ -17,29 +17,7 @@ public class Solution {
         return new int[2];
     }
 
-    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        return addNode(l1, l2, 0);
-    }
-
-    private ListNode addNode(ListNode t1, ListNode t2, int remainder) {
-        int rawSum = 0;
-        if (t1 != null && t2 != null) {
-            rawSum = t1.val + t2.val + remainder;
-            return new ListNode(rawSum % 10, addNode(t1.next, t2.next, rawSum / 10));
-        } else if (t1 != null && t2 == null) {
-            rawSum = t1.val + remainder;
-            return new ListNode(rawSum % 10, addNode(t1.next, null, rawSum / 10));
-        } else if (t1 == null && t2 != null) {
-            rawSum = t2.val + remainder;
-            return new ListNode(rawSum % 10, addNode(null, t2.next, rawSum / 10));
-        } else {
-            if (remainder == 1) {
-                return new ListNode(remainder, null);
-            } else return null;
-        }
-    }
-
-    public int lengthOfLongestSubstring(String s) {
+    public static int lengthOfLongestSubstring(String s) {
         byte[] input = s.getBytes();
         int len = input.length;
         int ml = 0;
@@ -66,4 +44,47 @@ public class Solution {
         ml = Math.max(ml, cl);
         return ml;
     }
+
+    public static int reverse(int x) {
+        boolean negative = false;
+        if (x == Integer.MAX_VALUE || x == Integer.MIN_VALUE) {
+            return 0;
+        }
+        if (x < 0) {
+            x = -x;
+            negative = true;
+        }
+        int t;
+        int out = -1;
+        while (x >= 10) {
+            t = x % 10;
+            if (out != -1) {
+                out = out*10 + t;
+                x = x / 10;
+            }
+            if (out == -1) {
+                if (t != 0) {
+                    out = t;
+                }
+                x = x / 10;
+            }
+        }
+        if (out >= 300_000_000) {
+            return 0;
+        }
+        if (negative) {
+            if (out == -1) {
+                return -x;
+            }
+            out = -10*out - x;
+            return Math.min(out, 0);
+        } else {
+            if (out == -1) {
+                return x;
+            }
+            out = 10*out + x;
+            return Math.max(out, 0);
+        }
+    }
+
 }
