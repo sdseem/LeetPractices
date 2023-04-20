@@ -87,4 +87,55 @@ public class Solution {
         }
     }
 
+    public static boolean isPalindrome(int x) {
+        if (x < 0) {
+            return false;
+        } else if (x <= 9) {
+            return true;
+        }
+        int f = x % 10;
+        if (f == 0) {
+            return false;
+        }
+        x = x / 10;
+        while (f < x) {
+            f = f*10 + (x % 10);
+            x = x / 10;
+        }
+        if (x == f) {
+            return true;
+        }
+        f = f / 10;
+        return x == f;
+    }
+
+    public static int maxArea(int[] height) {
+        int highest = 0;
+        int t = 0;
+        int r = height.length - 1;
+        int l = 0;
+        while (l < r) {
+            if (height[l] < height[r]) {
+                t = height[l] * (r - l);
+                if (t > highest) {
+                    highest = t;
+                }
+                l++;
+            } else if (height[l] > height[r]) {
+                t = height[r] * (r - l);
+                if (t > highest) {
+                    highest = t;
+                }
+                r--;
+            } else {
+                t = height[l] * (r - l);
+                if (t > highest) {
+                    highest = t;
+                }
+                l++;
+                r--;
+            }
+        }
+        return highest;
+    }
 }

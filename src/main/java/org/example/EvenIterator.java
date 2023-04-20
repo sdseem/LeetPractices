@@ -2,7 +2,7 @@ package org.example;
 
 import java.util.Iterator;
 
-public class EvenIterator implements Iterator<Integer> {
+public class EvenIterator implements Iterator<Integer>{
     private final Iterator<Integer> fullIterator;
     private boolean calledHasNext;
     private Integer next;
